@@ -1,4 +1,4 @@
-# Pokemon Ranger
+# "Pokemon Ranger"
 C言語でOpenGLを利用し，「ポケモンレンジャー」を再現しようと試みたプログラムです．  
   
 ![pokemon-ranger_demo](https://user-images.githubusercontent.com/88654010/135710125-4b3bc38e-d64f-4d10-810e-bf7253e23388.gif)
