@@ -3,8 +3,6 @@
 
 #include "apply_status.h"
 
-matrix y_0, y_1, y_2;
-
 void apply_enemy_status(int *enemy_status, int *count_status, int *ray_status, int *ENEMY_X, int *ENEMY_Y, int *RAY_X, int *RAY_Y, int *RAY_X_list, int *RAY_Y_list)
 {
     switch (*enemy_status)
@@ -102,9 +100,6 @@ void apply_enemy_status(int *enemy_status, int *count_status, int *ray_status, i
             RAY_Y_list[i] = -10;
         }
         break;
-
-    default:
-        printf("enemy_status");
     }
 }
 
@@ -120,7 +115,7 @@ void apply_ray_status(int *enemy_status, int *count_status, int *ray_status, int
         else
         {
             *enemy_status = 0;
-            *ray_status = 0;
+            *ray_status = -10;
             *count_status = 0;
         }
         break;
@@ -202,7 +197,6 @@ void apply_ray_status(int *enemy_status, int *count_status, int *ray_status, int
         break;
 
     case 4:
-    // *ray_status=3;
         if (*count_status == 0)
         {
             mat_alloc(&y_0, 2, 1);
@@ -246,7 +240,6 @@ void apply_ray_status(int *enemy_status, int *count_status, int *ray_status, int
         break;
 
     case 5:
-    // *ray_status=3;
         if (*count_status == 0)
         {
             mat_alloc(&y_0, 2, 1);
@@ -260,8 +253,8 @@ void apply_ray_status(int *enemy_status, int *count_status, int *ray_status, int
             mat_copy(&y_2, y_0);
         }
         if (*count_status < 240)
-        {
-            *count_status += 1;
+        {  
+             *count_status += 1;
 
             runge_kutta(c1, c2, g, y_2, h, &y_1, calculate_differential_equation);
             RAY_X_list[0] = (*ENEMY_X) + mat_elem(y_1, 0, 0) * cos((double)(*count_status) / 10);
@@ -288,8 +281,5 @@ void apply_ray_status(int *enemy_status, int *count_status, int *ray_status, int
             *count_status = 0;
         }
         break;
-
-    default:
-        printf("ray_status");
     }
 }
