@@ -10,13 +10,11 @@
 #include <math.h>
 #include <stdlib.h>
 #include "matrix.h"
-// #include "solve_equation.h"
-#include "locus_list.h"
 #include "apply_status.h"
 #include "draw_object.h"
+#include "judge_condition.h"
 
 #define epsilon 1.0e-12
-
 
 #define MAX_POINTS 5
 
@@ -55,108 +53,16 @@ int count_circle = 0;
 
 double h, k, m, c, g, c1, c2;
 
+linked_list list;
+
 void display() {
-    // double x, y, t;
     // ウィンドウ表示内容のクリア
     glClear(GL_COLOR_BUFFER_BIT);
 
     n_points =list.size;
-    mat_alloc(&points, n_points, 2);
 
-    list_node *iter = list.root;
-
-    int r_ok=0;
-    int l_ok=0;
-    int u_ok=0;
-    int d_ok=0;
-    int ok = 0;
-
-    // 接触判定，囲まれていることを判定
-    for (int i=0; i<n_points; i++){
-        mat_elem(points, i, 0) = (double)iter->x;
-        mat_elem(points, i, 1) =  (double)iter->y;
-        
-        iter = iter->next;
-
-        if (fabs(mat_elem(points, i, 0)-ENEMY_X)<10 && fabs(mat_elem(points, i, 1)-ENEMY_Y)<15) {
-            status = -1;
-        }
-
-        for (int j=0; j<4; j++){
-            if (fabs(mat_elem(points, i, 0)-RAY_X_list[j])<5 && fabs(mat_elem(points, i, 1)-RAY_Y_list[j])<5) {
-            status = -1;
-            }
-        }
-
-        
-
-        if (fabs(mat_elem(points, i, 1)-ENEMY_Y)<20) {
-            if (mat_elem(points, i, 0)<ENEMY_X) {
-                l_ok += 1;
-            }
-            else{
-                r_ok += 1;
-            }
-        }
-
-        if (fabs(mat_elem(points, i, 0)-ENEMY_X)<20) {
-            if (mat_elem(points, i, 1)<ENEMY_Y) {
-                d_ok += 1;
-            }
-            else{
-                u_ok += 1;
-            }
-        }
-        if (i < n_points/2) {
-
-            if (fabs(mat_elem(points, i, 0)-PREV_X)<20 && fabs(mat_elem(points, i, 1)-(window_height - PREV_Y - 1))<10) {
-                ok += 1;
-            }
-        }
-    }
-
-
-    if (l_ok > 0 && r_ok > 0 && u_ok > 0 && d_ok > 0 && ok > 0 && ok > 0) {
-        status = 1;
-    }
-
-    free(iter);
-
-
-    // statusの処理
-    if (status<0 && status>-5) {
-        count++;    
-
-        if (count > 30) {
-            reset_list(&list, &PREV_X, &PREV_Y);
-
-            count = 0;
-            status = 0;
-
-            if (count_circle>0){
-                count_circle--;
-            }
-        }    
-    }
-    if (status == 1) {
-        count++;
-        if (count > 5) { 
-            reset_list(&list, &PREV_X, &PREV_Y);
-
-            count = 0;
-            status = 0;
-            count_circle++;
-        }
-    }
-    if (status == -5){
-        count++;
-
-        draw_ball(ENEMY_X, ENEMY_Y, 21.0);
-
-        if (count>100){
-            status = -6;
-        }
-    }
+    judge_locus(n_points, &points, &status, list, PREV_X, PREV_Y, ENEMY_X, ENEMY_Y, RAY_X_list, RAY_Y_list, window_height);
+    judge_status(&list, &status, &count, &count_circle, &PREV_X, &PREV_Y, ENEMY_X, ENEMY_Y);
 
     draw_locus(status, n_points, &points);
     draw_number(&status, &enemy_status, &ray_status, count_circle, ENEMY_X, ENEMY_Y);
