@@ -41,10 +41,10 @@ int COLOR = 0;
 int ENEMY_X = 250;
 int ENEMY_Y = 250;
 
-int RAY_X_list[4] = {0, 0, 0, 0};
-int RAY_Y_list[4] = {0, 0, 0, 0};
-int RAY_X = -10;
-int RAY_Y = -10;
+int RAY_X_list[4];
+int RAY_Y_list[4];
+int RAY_X;
+int RAY_Y;
 
 int status = 0;
 
@@ -122,7 +122,7 @@ void mouse(int button, int state, int x, int y) {
         PRESS_BUTTON = -1;
 
         if (status>=0) {
-            reset_list(&list, &PREV_X, &PREV_Y);            
+            reset_list(&list, &PREV_X, &PREV_Y);           
         }   
     }
 
@@ -166,7 +166,7 @@ void init() {
     c1 = k/m;
     c2 = c/m;
 
-    // リストの初期化
+    init_ray(&RAY_X, &RAY_Y, RAY_X_list, RAY_Y_list);
     init_list(&list); 
 }
 
