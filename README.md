@@ -25,4 +25,4 @@ make
 - 任天堂. (2021). 『ポケモンレンジャー』の世界 - 任天堂. Retrieved October 2nd, 2021, from https://www.nintendo.co.jp/ds/argj/world/index.html
 
 ## License
-The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE
+The source code is licensed MIT, see LICENSE.
