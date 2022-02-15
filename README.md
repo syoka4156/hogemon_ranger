@@ -1,8 +1,9 @@
-# "Pokemon Ranger"
+# Hogemon Ranger
 Hogemon Ranger is a 2D game written in C and OpenGL. 
 This is referred to a battle of "Pokémon Ranger", an action role-playing video game published by The Pokémon Company
-  
+
 <img src="https://user-images.githubusercontent.com/88654010/135710125-4b3bc38e-d64f-4d10-810e-bf7253e23388.gif" width="60%">
+
 ## Description
 This repository was aimed to improve my programming skills.
 
