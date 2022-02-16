@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "matrix.h"
 #include "apply_status.h"
-#include "draw_object.h"
+// #include "draw_object.h"
 #include "judge_condition.h"
 
 #define epsilon 1.0e-12
@@ -28,9 +28,9 @@ double TIME = 0.0;
 const double RECT_SIZE = 300.0;
 
 
-int enemy_status = 0;
-int ray_status = 0;
-int count_status = 0;
+int enemy_status;
+int ray_status;
+int count_status;
 
 int PREV_X = -10;
 int PREV_Y = -10;
@@ -165,6 +165,10 @@ void init() {
     g = 9.8;
     c1 = k/m;
     c2 = c/m;
+
+    enemy_status=0;
+    ray_status=10;
+    count_status=0;
 
     init_ray(&RAY_X, &RAY_Y, RAY_X_list, RAY_Y_list);
     init_list(&list); 
